@@ -4,7 +4,7 @@
 
 This repository accompanies the **Part 1** guide on building a local MEV simulation engine. It demonstrates how to simulate complex arbitrage trades locally using `eth_call` and **Phantom Deployments**.
 
-> 📖 **Read the full guide on Substack:** [**Ghost Trading: How to Haunt the EVM for Risk-Free Arbitrage**](https://sohammalve.substack.com/publish/post/184625075)
+> 📖 **Read the full guide on Substack:** [**Ghost Trading: How to Haunt the EVM for Risk-Free Arbitrage**](https://sohammalve.substack.com/p/ghost-trading-how-to-haunt-the-evm)
 
 ## 💀 The Concept
 
