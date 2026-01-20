@@ -1,66 +1,46 @@
-## Foundry
+# 👻 Ghost Trading: Phantom Simulator (Part 1)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+**Perform "Astral Projection" on the EVM.**
 
-Foundry consists of:
+This repository accompanies the **Part 1** guide on building a local MEV simulation engine. It demonstrates how to simulate complex arbitrage trades locally using `eth_call` and **Phantom Deployments**.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+> 📖 **Read the full guide on Substack:** [**Ghost Trading: How to Haunt the EVM for Risk-Free Arbitrage**](https://sohammalve.substack.com/publish/post/184625075)
 
-## Documentation
+## 💀 The Concept
 
-https://book.getfoundry.sh/
+Most arbitrage bots rely on standard math ($x \cdot y = k$) to calculate profits. They assume every token behaves like USDC. But the chain is full of **"Trap Tokens"** (Rebase, Fee-on-transfer, Honeypots) that will wreck your PnL.
 
-## Usage
+**The Solution:**
+Instead of deploying a contract to test a trade (expensive), or trusting the Router (risky), we perform a **Phantom Deployment**.
+1.  We compile our Arbitrage logic (`PhantomOut.sol`).
+2.  We construct a deployment transaction but send it via `eth_call`.
+3.  The node executes the constructor, runs the swap logic, and returns the result without ever touching the blockchain state.
 
-### Build
+**Zero Gas. Zero Risk.**
 
-```shell
-$ forge build
-```
+## ⚡ Tech Stack
 
-### Test
+* **[Bun](https://bun.sh/):** High-performance TypeScript runtime (faster than Node).
+* **[Foundry](https://getfoundry.sh/):** For writing and compiling the high-performance Solidity logic.
+* **[Ethers.js](https://docs.ethers.org/v6/):** For interacting with the local/remote Reth node.
 
-```shell
-$ forge test
-```
+## 🛠️ Setup & Installation
 
-### Format
+### 1. Prerequisites
+Ensure you have **Bun** and **Foundry** installed.
 
-```shell
-$ forge fmt
-```
+```bash
+# Install Bun
+curl -fsSL [https://bun.sh/install](https://bun.sh/install) | bash
 
-### Gas Snapshots
+# Install Foundry
+curl -L [https://foundry.paradigm.xyz](https://foundry.paradigm.xyz) | bash
+foundryup
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
+###  Install Dependencies
+```bash
+bun install
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+forge build
 ```
